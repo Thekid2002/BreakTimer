@@ -8,7 +8,7 @@
     <mat-cell *matCellDef="let element">{{ formatDate(element.endDateTime) }}</mat-cell>  </ng-container>
   <ng-container matColumnDef="expectedDuration">
     <mat-header-cell *matHeaderCellDef>Expected Duration</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.expectedDuration }}</mat-cell>
+    <mat-cell *matCellDef="let element">{{ formatDuration(element.expectedDuration) }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="actualDuration">
     <mat-header-cell *matHeaderCellDef>Actual Duration</mat-header-cell>
