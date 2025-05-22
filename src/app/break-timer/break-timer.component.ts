@@ -140,8 +140,26 @@ export class BreakTimerComponent implements OnInit {
   }
 
   private sendNotification(message: string): void {
-    if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification(message);
+    if (!('Notification' in window)) {
+      console.warn('This browser does not support notifications.');
+      alert(message);
+      return;
+    }
+    if (Notification.permission === 'granted') {
+      try {
+        new Notification(message);
+      } catch (e) {
+        console.error('Notification error:', e);
+        alert(message);
+      }
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification(message);
+        } else {
+          alert(message);
+        }
+      });
     } else {
       alert(message);
     }
