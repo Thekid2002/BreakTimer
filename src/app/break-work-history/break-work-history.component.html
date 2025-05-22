@@ -1,12 +1,11 @@
 <mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="startDateTime">
     <mat-header-cell *matHeaderCellDef>Start</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.startDateTime }}</mat-cell>
+    <mat-cell *matCellDef="let element">{{ formatDate(element.startDateTime) }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="endDateTime">
     <mat-header-cell *matHeaderCellDef>End</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.endDateTime }}</mat-cell>
-  </ng-container>
+    <mat-cell *matCellDef="let element">{{ formatDate(element.endDateTime) }}</mat-cell>  </ng-container>
   <ng-container matColumnDef="expectedDuration">
     <mat-header-cell *matHeaderCellDef>Expected Duration</mat-header-cell>
     <mat-cell *matCellDef="let element">{{ element.expectedDuration }}</mat-cell>

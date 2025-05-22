@@ -35,6 +35,8 @@ export class BreakTimerComponent implements OnInit {
   public workTimes: number[];
   public breakTimes: number[];
 
+  public stopCountdown: boolean = false;
+
   public comfortBefore!: Comfort;
   public currentActiveTimeSlot: TimeSlot | null = null;
 
@@ -103,8 +105,9 @@ export class BreakTimerComponent implements OnInit {
     }
     const tick = () => {
       const remaining = Math.max(0, Math.round((this.currentActiveTimeSlot!.endDateTime.getTime() - Date.now()) / 1000));
-      if (remaining <= 0) {
+      if (remaining <= 0 || this.stopCountdown == true) {
         this.finishCurrentActiveTimeSlot();
+        this.stopCountdown = false;
         return;
       }
       setTimeout(tick, 200);
@@ -112,7 +115,7 @@ export class BreakTimerComponent implements OnInit {
     tick();
   }
 
-  private finishCurrentActiveTimeSlot(): void {
+  public finishCurrentActiveTimeSlot(): void {
     this.checkComfort().subscribe(comfort => {
       this.activeWorkBreakService.finishCurrentActiveTimeSlot(comfort)
       this.sendNotification(this.type +' time is up!');
@@ -137,4 +140,6 @@ export class BreakTimerComponent implements OnInit {
     const seconds = remaining % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
+
+  protected readonly stop = stop;
 }

@@ -1,9 +1,9 @@
-<h1>Break timer</h1>
+<h1>{{currentActiveTimeSlot?.type ?? 'Break'}} timer</h1>
 <div *ngIf="!currentActiveTimeSlot" style="display: flex; flex-direction: column; gap: 10px;">
   <mat-form-field>
     <mat-label>Type</mat-label>
     <mat-select [(ngModel)]="type">
-      <mat-option value="null">None</mat-option>
+      <mat-option [value]="null">None</mat-option>
       <mat-option [value]="TimeSlotType.WORK">Work</mat-option>
       <mat-option [value]="TimeSlotType.BREAK">Break</mat-option>
     </mat-select>
@@ -20,6 +20,7 @@
   <button mat-raised-button color="primary" (click)="start()">Start</button>
 </div>
 <div *ngIf="currentActiveTimeSlot">
-  <h3>Remaining {{type}} Time</h3>
+  <h3>Remaining {{currentActiveTimeSlot.type}} Time</h3>
   <p>{{getTimeString()}}</p>
+  <button mat-raised-button color="warn" (click)="stopCountdown = true">Skip</button>
 </div>

@@ -41,7 +41,7 @@ export class ActiveWorkBreakService {
       const parsedVal = JSON.parse(jsonVal);
       const timeSlot = new TimeSlot(
         parsedVal.expectedDuration,
-        (parsedVal.startDateTime.getTime() - Date.now())/1000/60,
+        (Date.now() - new Date(parsedVal.startDateTime).getTime())/1000/60,
         new Date(parsedVal.startDateTime),
         new Date(parsedVal.endDateTime),
         parsedVal.type,
