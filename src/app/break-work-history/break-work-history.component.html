@@ -1,0 +1,33 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="startDateTime">
+    <mat-header-cell *matHeaderCellDef>Start</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.startDateTime }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="endDateTime">
+    <mat-header-cell *matHeaderCellDef>End</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.endDateTime }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="expectedDuration">
+    <mat-header-cell *matHeaderCellDef>Expected Duration</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.expectedDuration }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actualDuration">
+    <mat-header-cell *matHeaderCellDef>Actual Duration</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.actualDuration }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="comfortBefore">
+    <mat-header-cell *matHeaderCellDef>Comfort Before</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.comfortBefore }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="comfortAfter">
+    <mat-header-cell *matHeaderCellDef>Comfort After</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.comfortAfter }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

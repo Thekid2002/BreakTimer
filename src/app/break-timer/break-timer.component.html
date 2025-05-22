@@ -1,0 +1,25 @@
+<h1>Break timer</h1>
+<div *ngIf="!currentActiveTimeSlot" style="display: flex; flex-direction: column; gap: 10px;">
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select [(ngModel)]="type">
+      <mat-option value="null">None</mat-option>
+      <mat-option [value]="TimeSlotType.WORK">Work</mat-option>
+      <mat-option [value]="TimeSlotType.BREAK">Break</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="type">
+    <mat-label>Duration</mat-label>
+    <mat-select [(ngModel)]="selectedTime">
+      @for (workT of workTimes; track workT) {
+        <mat-option [value]="workT">{{workT}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="start()">Start</button>
+</div>
+<div *ngIf="currentActiveTimeSlot">
+  <h3>Remaining {{type}} Time</h3>
+  <p>{{getTimeString()}}</p>
+</div>
