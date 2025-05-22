@@ -32,8 +32,6 @@ import {Observable} from 'rxjs';
 })
 export class BreakTimerComponent implements OnInit {
   public TimeSlotType = TimeSlotType;
-  public workTimes: number[];
-  public breakTimes: number[];
 
   public stopCountdown: boolean = false;
 
@@ -47,8 +45,6 @@ export class BreakTimerComponent implements OnInit {
               private breakWorkHistoryService: BreakWorkHistoryService, private dialog: MatDialog,
               private activeWorkBreakService: ActiveWorkBreakService
   ) {
-    this.workTimes = this.workService.getWorkTimes();
-    this.breakTimes = this.breakService.getBreakTimes();
     this.currentActiveTimeSlot = this.activeWorkBreakService.getCurrentActiveTimeSlot();
   }
 
@@ -91,6 +87,26 @@ export class BreakTimerComponent implements OnInit {
     this.currentActiveTimeSlot = new TimeSlot(this.selectedTime, null, startDateTime, endDateTime, this.type, this.comfortBefore, null);
     this.activeWorkBreakService.setCurrentActiveTimeSlot(this.currentActiveTimeSlot);
     this.countDown();
+  }
+
+  public getWorkTimes(): number[] {
+    const times = this.workService.getWorkTimes().sort((a, b) => a - b);
+    if (this.comfortBefore === Comfort.VERY_BAD || this.comfortBefore === Comfort.BAD) {
+      return times.filter(t => t <= 15);
+    } else if (this.comfortBefore === Comfort.GOOD || this.comfortBefore === Comfort.VERY_GOOD) {
+      return times.filter(t => t >= 25);
+    }
+    return times;
+  }
+
+  public getBreakTimes(): number[] {
+    const times = this.breakService.getBreakTimes().sort((a, b) => a - b);
+    if (this.comfortBefore === Comfort.VERY_BAD || this.comfortBefore === Comfort.BAD) {
+      return times.filter(t => t >= 15);
+    } else if (this.comfortBefore === Comfort.GOOD || this.comfortBefore === Comfort.VERY_GOOD) {
+      return times.filter(t => t <= 10);
+    }
+    return times;
   }
 
   private async requestNotificationPermission(): Promise<void> {

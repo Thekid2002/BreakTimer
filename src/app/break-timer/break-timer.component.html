@@ -9,11 +9,20 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field *ngIf="type">
+  <mat-form-field *ngIf="type === TimeSlotType.WORK">
     <mat-label>Duration</mat-label>
     <mat-select [(ngModel)]="selectedTime">
-      @for (workT of workTimes; track workT) {
+      @for (workT of getWorkTimes(); track workT) {
         <mat-option [value]="workT">{{workT}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="type === TimeSlotType.BREAK">
+    <mat-label>Duration</mat-label>
+    <mat-select [(ngModel)]="selectedTime">
+      @for (breakT of getBreakTimes(); track breakT) {
+        <mat-option [value]="breakT">{{breakT}}</mat-option>
       }
     </mat-select>
   </mat-form-field>
