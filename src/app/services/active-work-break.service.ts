@@ -43,7 +43,7 @@ export class ActiveWorkBreakService {
         parsedVal.expectedDuration,
         (Date.now() - new Date(parsedVal.startDateTime).getTime())/1000/60,
         new Date(parsedVal.startDateTime),
-        new Date(parsedVal.endDateTime),
+        new Date(),
         parsedVal.type,
         parsedVal.comfortBefore,
         comfortAfter
